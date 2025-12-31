@@ -1,5 +1,6 @@
 server:
   port: 8080
+
 spring:
   application:
     name: back
@@ -13,7 +14,12 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+
+  # ✅ Kafka 설정 시작
   kafka:
+    # 👇 여기가 핵심입니다. 도커 Compose 설정과 일치시킵니다.
+    bootstrap-servers: localhost:19092
+
     producer:
       value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
       properties:
@@ -24,6 +30,7 @@ spring:
       properties:
         spring.json.trusted.packages: com.back.*
         spring.json.use.type.headers: true
+
 logging:
   level:
     com.back: DEBUG
